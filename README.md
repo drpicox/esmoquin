@@ -19,4 +19,11 @@ The idea of this middleware is to:
 How to start
 ------------
 
+Install `esmoquin` node module:
+
+```bash
+$ npm i --save-dev esmoquin
+```
+
+
 See Grutnfile.coffe in this project, it is an example.
