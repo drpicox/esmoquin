@@ -1,6 +1,6 @@
 {
   "name": "esmoquin",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A (grunt) connect middleware to test local SPAs in remote Serverst",
   "main": "index.js",
   "scripts": {
