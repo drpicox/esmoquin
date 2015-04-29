@@ -25,5 +25,96 @@ Install `esmoquin` node module:
 $ npm i --save-dev esmoquin
 ```
 
+Create a esmoquin instance:
 
-See Grutnfile.coffe in this project, it is an example.
+```javascript
+var Esmoquin = require('esmoquin').Esmoquin;
+var esmoquin = new Esmoquin();
+// here configure your esmoquin instance
+```
+
+Add your esmoquin instance middleware to your connect options configuration:
+
+```javascript
+grunt.config({
+
+    //...
+
+    connect: {
+        options: {
+            // ...
+            middleware: esmoquin.middleware,
+        },
+        // ...
+    },
+});
+```
+
+Or add it inside your middlewares array:
+
+```javascript
+grunt.config({
+
+    //...
+
+    connect: {
+        options: {
+            // ...
+            middleware: [
+                // ...
+                middlewares.unshift(esmoquin.middleware);
+            ],
+        },
+        // ...
+    },
+});
+```
+
+Or add it as one middleware more:
+
+```javascript
+grunt.config({
+
+    //...
+
+    connect: {
+        options: {
+            // ...
+            middleware: function(connect,options,middlewares) {
+                // ...
+                middlewares.unshift(esmoquin.middleware);
+                return middlewares;
+            },
+        },
+        // ...
+    },
+});
+```
+
+
+See [Gruntfile.coffe](Gruntfile.coffee) in this project, it is an example.
+
+
+
+
+Examples
+--------
+
+### Open all .md files from a remote host.
+
+The idea of this example is to retrieve resources only available in other application contexts in your server and test your app before deployment.
+
+```javascript
+esmoquin.minimatch '**/*.md', Esmoquin.proxy host:'your-host.com'
+```
+
+
+### Proxy everything but Javascripts
+
+The idea of this example is to test/debug a production deployment but with the last version of Javascript without deployment.
+
+```javascript
+esmoquin.minimatch '**/*.md', Esmoquin.local path: '/app/<%= params.path %>'
+esmoquin.always Esmoquin.proxy host:'ej.mbfrs.com'
+```
+
